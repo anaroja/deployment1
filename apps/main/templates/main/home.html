@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotes</title>
+    {% load static %}
+</head>
+
+<body>
+    <div>
+        <h1>Welcome {{user}}</h1>
+        <a href="/logout">
+            <button>logout</button>
+        </a>
+    </div>
+    <div>
+        <h3>Quotable Quotes</h3>
+        <div>
+            {% for quote in all_quotes %}
+
+            <p>{{ quote.quoted_by }} : {{ quote.message }}</p>
+            <p>Posted by
+                <a href="/display_quote/{{quote.created_by.id}}">{{ quote.created_by.name }}</a>
+            </p>
+            <a href="/add_quote/{{quote.id}}">Add to My list</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+        <h3>Your Favorites</h3>
+        <div>
+            {% for add in my_quotes %}
+
+            <p>{{ add.quoted_by }} : {{ add.message }}</p>
+            <p>Posted by
+                <a href="/display_quote/{{add.created_by.id}}">{{ add.created_by.name }}</a>
+            </p>
+            <a href="/remove/{{add.added_quotes.id}}">Remove From My list</a>
+
+            {% endfor %}
+        </div>
+        <div>
+            <form action="/create" method="post">
+                <h4>Contribute a Quote:</h4>
+                {% csrf_token %}
+                <p>Quoted by:
+                    <input type="text" name="quoted_by">
+                </p>
+                <p>Message:
+                    <input type="text" name="message">
+                </p>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+
+</html>

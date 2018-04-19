@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Posted by</title>
+    {% load static %}
+</head>
+
+<body>
+    <div>
+        <a href="/">
+            <button>Dashboard</button>
+        </a>
+        <a href="/logout">
+            <button>logout</button>
+        </a>
+        <p>Posts by:{{quotes.created_by.name}}</p>
+        <p>Count:{{count}}</p>
+        <div>
+            {% for this in my_quotes %}
+
+            <p>{{ this.quoted_by }} : {{ this.message }}</p>
+            {% endfor %}
+        </div>
+
+</body>
+
+</html>
